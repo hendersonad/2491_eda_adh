@@ -1,10 +1,11 @@
 library(tidyverse)
+library(here)
 
 # 2. loading data
 
-fev1 <- read_csv("fev1.csv", col_types = cols(id = col_factor()))
+fev1 <- read_csv(here("data/fev1.csv"), col_types = cols(id = col_factor()))
 # or
-fev1 <- read.csv("fev1.csv")
+#fev1 <- read.csv("fev1.csv")
 fev1$id <- factor(fev1$id, levels = sort(unique(fev1$id)))
 
 # 3a. correlation
