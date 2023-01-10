@@ -51,7 +51,7 @@ gest_long <- Gestation %>%
 gest_long %>% 
 	group_by(variable) %>% 
 	summarise(mean = mean(value, na.rm = T))
-
+# but this is more complicated than necessary for this example
 
 # Activity 3 - Grouped summaries
 
@@ -60,11 +60,19 @@ gest_simple <- Gestation %>%
 	dplyr::select(id, age, race)
 gest_simple %>% slice(1:5)
 
-# calculate the mean age by race
+# calculate the mean age & sd by race
 gest_simple %>% 
 	group_by(race) %>% 
-	summarise(mean_age = mean(age, na.rm = T))
-
+	summarise(mean_age = mean(age, na.rm = T),
+						sd_age = sd(age, na.rm = T))
+# could also use summarise_at 
+gest_simple %>% 
+	group_by(race) %>% 
+	summarise_at(
+		.vars = vars(age), 
+		.funs = list(mean, sd),
+		na.rm = T
+		)
 
 # Activity 4 - Extensions
 
